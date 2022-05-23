@@ -131,7 +131,7 @@ class NeuroTron:
 
         if verbose:
             num_runs = filter_len * d_len * bound_len * beta_len * eta_len * b_len
-            i = 0
+            ir = 0
             msg = 'Iteration {:' + str(len(str(num_runs))) + '} out of ' + str(num_runs)
 
         tron_error = np.empty([num_iters, filter_len, d_len, bound_len, beta_len, eta_len, b_len])
@@ -142,10 +142,6 @@ class NeuroTron:
             sgd_error = None
 
         for ifilter, filter in enumerate(filterlist):
-            if verbose:
-                i += 1
-                print(msg.format(i, num_runs))
-
             # Choosing the ground truth w_* from a Normal distribution
             w_star = np.random.randn(filter, 1)
 
@@ -154,6 +150,10 @@ class NeuroTron:
                     for ibeta, beta in enumerate(betalist):
                         for ieta, eta in enumerate(etalist):
                             for ib, b in enumerate(blist):
+                                if verbose:
+                                    ir += 1
+                                    print(msg.format(ir, num_runs))
+
                                 self.reset(w_star, d, eta, b, width, filter)
 
                                 for i in range(num_iters):
