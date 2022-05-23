@@ -14,17 +14,13 @@ output_path.mkdir(parents=True, exist_ok=True)
 
 # %% Set the seed
 
-np.random.seed(seed=1)
-
-# %% Set data sampling distribution
-
-sample_data = lambda s : np.random.normal(loc=0.0, scale=1.0, size=s)
+np.random.seed(sim01_setup['seed'])
 
 # %% Instantiate NeuroTron
 
-neurotron = NeuroTron(sample_data)
+neurotron = NeuroTron(sim01_setup['sample_data'])
 
-# %% Run neurotron for figure 1
+# %% Run neurotron for simulation 1
 
 tron_error, sgd_error = neurotron.run(
     sim01_setup['filterlist'],
@@ -34,9 +30,10 @@ tron_error, sgd_error = neurotron.run(
     sim01_setup['etalist'],
     sim01_setup['blist'],
     sim01_setup['width'],
-    sim01_setup['num_iters']
+    sim01_setup['num_iters'],
+    run_sgd=sim01_setup['run_sgd']
 )
 
-# %% Savie output of simulation 1
+# %% Save output of simulation 1
 
 np.savetxt(output_path.joinpath(sim01_setup['name']+'.csv'), np.squeeze(tron_error), delimiter=',')
