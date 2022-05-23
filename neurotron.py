@@ -1,14 +1,10 @@
-class NeuroTron:
-    def __init__(self, w_star, d, eta, b, width, filter):
-        assert(len(w_star) == filter)
+import numpy as np
 
-        self.w_true = w_star
-        self.dim = d
-        self.w_now = np.ones((filter, 1)) # Fixed initial point for all experiments 
-        self.step = eta
-        self.minibatch = b 
-        self.w = width  # The w in the paper is the width of the net 
-        self.r = filter # The r in the paper - the filter dimension < dim
+class NeuroTron:
+    def __init__(self, w_star, d, eta, b, width, filter, sample_data):
+        self.reset(w_star, d, eta, b, width, filter)
+
+        self.sample_data = sample_data
 
         # Choosing the M matrix 
         M_X = np.random.randn(filter, filter)
@@ -37,11 +33,23 @@ class NeuroTron:
 
         avg = sum/width  
 
-    def err(self):
-        return np.linalg.norm(self.w_true-self.w_now)    
+    def reset(self, w_star, d, eta, b, width, filter):
+        assert(len(w_star) == filter)
 
-    def sample(self,mu,sigma):    
-        return mu + sigma*np.random.randn(self.minibatch, self.dim)
+        self.w_true = w_star.copy()
+        self.dim = d
+        self.w_now_tron = np.ones((filter, 1)) # Fixed initial point for NeuroTron experiments
+        self.w_now_sgd = np.ones((filter, 1)) # Fixed initial point for SGD experiments
+        self.step = eta
+        self.minibatch = b
+        self.w = width  # The w in the paper is the width of the net
+        self.r = filter # The r in the paper - the filter dimension < dim
+
+    def err_tron(self):
+        return np.linalg.norm(self.w_true-self.w_now_tron)
+
+    def err_sgd(self):
+        return np.linalg.norm(self.w_true-self.w_now_sgd)
 
     def attack(self,bound,beta):
         b = self.minibatch
@@ -85,37 +93,71 @@ class NeuroTron:
         return final   
 
     # M is r x dim 
-    # w_now is a r x 1 current point 
+    # w_now_tron is a r x 1 current point
     # inputs are 1 x dim  
-    def update_neuro(self, mu, sigma, bound, beta): 
-        data = self.sample(mu, sigma) # b x dim sized data matrix sampled from N(mu,sigma)
+    def update_tron(self, bound, beta):
+        data = self.sample_data(self.minibatch, self.dim)
         y_oracle = self.net(data, self.w_true)
         poison = self.attack(bound, beta)
         
         y_oracle += poison 
-        y_now = self.net(data, self.w_now) # 1 x b 
+        y_now = self.net(data, self.w_now_tron) # 1 x b
         
         sum = 0
         for i in range(0, self.minibatch):
             sum += (y_oracle[i]-y_now[i])*data[i, :]
         
         g_tron = (1/self.minibatch)*np.matmul(self.M, sum.reshape(self.dim, 1))
-        self.w_now += self.step*g_tron
-        return self.err()
+        self.w_now_tron += self.step*g_tron
+        return self.err_tron()
 
-    def update_sgd(self, mu, sigma, bound, beta): 
-        data = self.sample(mu, sigma) # b x dim sized data matrix sampled from N(mu, sigma)
+    def update_sgd(self, bound, beta):
+        data = self.sample_data(self.minibatch, self.dim)
         y_oracle = self.net(data, self.w_true)
         poison = self.attack(bound, beta)
         
         y_oracle += poison 
-        y_now = self.net(data, self.w_now) # 1 x b 
-        net_der_now = self.net_der(data, self.w_now) 
+        y_now = self.net(data, self.w_now_sgd) # 1 x b
+        net_der_now = self.net_der(data, self.w_now_sgd)
 
         sum = 0
         for i in range(0,self.minibatch):
             sum += (y_oracle[i]-y_now[i])*np.reshape(net_der_now[:, 0], (self.r, 1))
         
         g_sgd = (1/self.minibatch)*sum 
-        self.w_now += self.step*g_sgd
-        return self.err()
+        self.w_now_sgd += self.step*g_sgd
+        return self.err_sgd()
+
+    def simulate(self, filterlist, dlist, boundlist, betalist, etalist, blist, width, num_iters, run_sgd=False):
+        filter_len = len(filterlist)
+        d_len = len(dlist)
+        bound_len = len(boundlist)
+        beta_len = len(betalist)
+        eta_len = len(etalist)
+        b_len = len(blist)
+
+        tron_error = np.empty([num_iters, filter_len, d_len, bound_len, beta_len, eta_len, b_len])
+
+        if run_sgd:
+            sgd_error = np.empty([num_iters, filter_len, d_len, bound_len, beta_len, eta_len, b_len])
+        else:
+            sgd_error = None
+
+        for ifilter, filter in enumerate(filterlist):
+            # Choosing the ground truth w_* from a Normal distribution
+            w_star = np.random.randn(filter, 1)
+
+            for id, d in enumerate(dlist):
+                for ibound, bound in enumerate(boundlist):
+                    for ibeta, beta in enumerate(betalist):
+                        for ieta, eta in enumerate(etalist):
+                            for ib, b in enumerate(blist):
+                                self.reset(w_star, d, eta, b, width, filter)
+
+                                for i in range(num_iters):
+                                    tron_error[i, ifilter, id, ibound, ibeta, ieta, ib] = self.update_tron(bound, beta)
+
+                                    if run_sgd:
+                                        sgd_error[i, ifilter, id, ibound, ibeta, ieta, ib] = self.update_sgd(bound, beta)
+
+        return tron_error, sgd_error
