@@ -1,10 +1,23 @@
 import numpy as np
 
 class NeuroTron:
-    def __init__(self, w_star, d, eta, b, width, filter, sample_data):
-        self.reset(w_star, d, eta, b, width, filter)
-
+    def __init__(self, sample_data, w_star=None, d=None, eta=None, b=None, width=None, filter=None):
         self.sample_data = sample_data
+
+        if not any(val is None for val in [w_star, d, eta, b, width, filter]):
+            self.reset(w_star, d, eta, b, width, filter)
+
+    def reset(self, w_star, d, eta, b, width, filter):
+        assert(len(w_star) == filter)
+
+        self.w_true = w_star.copy()
+        self.dim = d
+        self.w_now_tron = np.ones((filter, 1)) # Fixed initial point for NeuroTron experiments
+        self.w_now_sgd = np.ones((filter, 1)) # Fixed initial point for SGD experiments
+        self.step = eta
+        self.minibatch = b
+        self.w = width  # The w in the paper is the width of the net
+        self.r = filter # The r in the paper - the filter dimension < dim
 
         # Choosing the M matrix 
         M_X = np.random.randn(filter, filter)
@@ -24,26 +37,6 @@ class NeuroTron:
                self.A_list.append(Z)
 
             c+=1 
-
-        # Elements of A_list are r x dim 
-        # One can check that average(A_list) = M = something of full rank = r 
-        sum = 0 
-        for i in range(width):
-            sum += self.A_list[i] 
-
-        avg = sum/width  
-
-    def reset(self, w_star, d, eta, b, width, filter):
-        assert(len(w_star) == filter)
-
-        self.w_true = w_star.copy()
-        self.dim = d
-        self.w_now_tron = np.ones((filter, 1)) # Fixed initial point for NeuroTron experiments
-        self.w_now_sgd = np.ones((filter, 1)) # Fixed initial point for SGD experiments
-        self.step = eta
-        self.minibatch = b
-        self.w = width  # The w in the paper is the width of the net
-        self.r = filter # The r in the paper - the filter dimension < dim
 
     def err_tron(self):
         return np.linalg.norm(self.w_true-self.w_now_tron)
@@ -96,7 +89,7 @@ class NeuroTron:
     # w_now_tron is a r x 1 current point
     # inputs are 1 x dim  
     def update_tron(self, bound, beta):
-        data = self.sample_data(self.minibatch, self.dim)
+        data = self.sample_data([self.minibatch, self.dim])
         y_oracle = self.net(data, self.w_true)
         poison = self.attack(bound, beta)
         
@@ -112,7 +105,7 @@ class NeuroTron:
         return self.err_tron()
 
     def update_sgd(self, bound, beta):
-        data = self.sample_data(self.minibatch, self.dim)
+        data = self.sample_data([self.minibatch, self.dim])
         y_oracle = self.net(data, self.w_true)
         poison = self.attack(bound, beta)
         
@@ -128,13 +121,18 @@ class NeuroTron:
         self.w_now_sgd += self.step*g_sgd
         return self.err_sgd()
 
-    def simulate(self, filterlist, dlist, boundlist, betalist, etalist, blist, width, num_iters, run_sgd=False):
+    def run(self, filterlist, dlist, boundlist, betalist, etalist, blist, width, num_iters, run_sgd=False, verbose=True):
         filter_len = len(filterlist)
         d_len = len(dlist)
         bound_len = len(boundlist)
         beta_len = len(betalist)
         eta_len = len(etalist)
         b_len = len(blist)
+
+        if verbose:
+            num_runs = filter_len * d_len * bound_len * beta_len * eta_len * b_len
+            i = 0
+            msg = 'Iteration {:' + str(len(str(num_runs))) + '} out of ' + str(num_runs)
 
         tron_error = np.empty([num_iters, filter_len, d_len, bound_len, beta_len, eta_len, b_len])
 
@@ -144,6 +142,10 @@ class NeuroTron:
             sgd_error = None
 
         for ifilter, filter in enumerate(filterlist):
+            if verbose:
+                i += 1
+                print(msg.format(i, num_runs))
+
             # Choosing the ground truth w_* from a Normal distribution
             w_star = np.random.randn(filter, 1)
 
