@@ -24,3 +24,20 @@ sim01_setup = {
     'seed' : 1,
     'name' : 'sim01'
 }
+
+# %% Setup for simulation 2
+
+sim02_setup = {
+    'sample_data' : lambda s : np.random.standard_cauchy(size=s),
+    'filterlist' : [25], # r: filter size
+    'dlist' : [100], # n: input dimension
+    'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
+    'betalist' : [0.5], # beta
+    'etalist' : [0.0001], # eta: learning rate
+    'blist' : [16], # b
+    'width' : 10, # k: width
+    'num_iters' : 40000,
+    'run_sgd' : True,
+    'seed' : 1,
+    'name' : 'sim02'
+}
