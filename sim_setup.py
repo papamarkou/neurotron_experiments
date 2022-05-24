@@ -28,7 +28,7 @@ sim01_setup = {
 # %% Setup for simulation 2
 
 sim02_setup = {
-    'sample_data' : lambda s : np.random.standard_cauchy(size=s),
+    'sample_data' : lambda s : np.random.laplace(loc=0.0, scale=4.0, size=s),
     'filterlist' : [25], # r: filter size
     'dlist' : [100], # n: input dimension
     'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
