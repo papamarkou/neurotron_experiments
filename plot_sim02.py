@@ -20,6 +20,10 @@ sgd_error_loaded = np.loadtxt(output_path.joinpath(sim02_setup['name']+'_sgd.csv
 
 fontsize = 13
 
+# %% Set transparency
+
+transparent = False
+
 # %% Generate and save NeuroTron figure for simulation 2
 
 plt.figure(figsize=[8, 5])
@@ -57,7 +61,7 @@ plt.savefig(
     output_path.joinpath(sim02_setup['name']+'_tron.png'),
     dpi=300,
     pil_kwargs={'quality': 100},
-    transparent=True,
+    transparent=transparent,
     bbox_inches='tight',
     pad_inches=0.1
 )
@@ -99,7 +103,7 @@ plt.savefig(
     output_path.joinpath(sim02_setup['name']+'_sgd.png'),
     dpi=300,
     pil_kwargs={'quality': 100},
-    transparent=True,
+    transparent=transparent,
     bbox_inches='tight',
     pad_inches=0.1
 )
@@ -141,7 +145,7 @@ plt.savefig(
     output_path.joinpath(sim02_setup['name']+'_tron_zoomed.png'),
     dpi=300,
     pil_kwargs={'quality': 100},
-    transparent=True,
+    transparent=transparent,
     bbox_inches='tight',
     pad_inches=0.1
 )
@@ -183,12 +187,10 @@ plt.savefig(
     output_path.joinpath(sim02_setup['name']+'_sgd_zoomed.png'),
     dpi=300,
     pil_kwargs={'quality': 100},
-    transparent=True,
+    transparent=transparent,
     bbox_inches='tight',
     pad_inches=0.1
 )
-
-
 
 # %% Generate and save zoomed in NeuroTron-vs-SGD figure for simulation 2
 
@@ -234,11 +236,11 @@ for i in range(1, tron_error_loaded.shape[1]):
 
     plt.savefig(
         output_path.joinpath(
-            sim02_setup['name']+'_tron_vs_sgd_zoomed_theta_val'+str(i).zfill(len(str(tron_error_loaded.shape[1])))+'.png'
+            sim02_setup['name']+'_tron_vs_sgd_zoomed_theta_val'+str(i+1).zfill(len(str(tron_error_loaded.shape[1])))+'.png'
         ),
         dpi=300,
         pil_kwargs={'quality': 100},
-        transparent=True,
+        transparent=transparent,
         bbox_inches='tight',
         pad_inches=0.1
     )
