@@ -30,7 +30,7 @@ sim01_setup = {
 sim02_setup = {
     'sample_data' : lambda s : np.random.laplace(loc=0.0, scale=2.0, size=s),
     'filterlist' : [25], # r: filter size
-    'dlist' : [100], # n: input dimension
+    'dlist' : [10], # n: input dimension
     'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
     'betalist' : [0.5], # beta
     'etalist' : [0.0001], # eta: learning rate
