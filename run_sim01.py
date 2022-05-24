@@ -18,7 +18,7 @@ np.random.seed(sim01_setup['seed'])
 
 # %% Instantiate NeuroTron
 
-neurotron = NeuroTron(sim01_setup['sample_data'])
+neurotron = NeuroTron(sample_data=sim01_setup['sample_data'])
 
 # %% Run neurotron for simulation 1
 
@@ -36,4 +36,5 @@ tron_error, sgd_error = neurotron.run(
 
 # %% Save output of simulation 1
 
-np.savetxt(output_path.joinpath(sim01_setup['name']+'.csv'), np.squeeze(tron_error), delimiter=',')
+np.savetxt(output_path.joinpath(sim01_setup['name']+'_tron.csv'), np.squeeze(tron_error), delimiter=',')
+np.savetxt(output_path.joinpath(sim01_setup['name']+'_sgd.csv'), np.squeeze(sgd_error), delimiter=',')

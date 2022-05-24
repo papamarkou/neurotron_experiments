@@ -1,23 +1,23 @@
 import numpy as np
 
 class NeuroTron:
-    def __init__(self, sample_data, w_star=None, d=None, eta=None, b=None, width=None, filter=None):
+    def __init__(self, sample_data=None, w_star=None, d=None, eta=None, b=None, width=None, filter=None):
         self.sample_data = sample_data
 
-        if not any(val is None for val in [w_star, d, eta, b, width, filter]):
-            self.reset(w_star, d, eta, b, width, filter)
+        self.reset(w_star, d, eta, b, width, filter)
 
     def reset(self, w_star, d, eta, b, width, filter):
-        assert(len(w_star) == filter)
+        if (w_star is not None) and (filter is not None):
+            assert(len(w_star) == filter)
 
-        self.w_true = w_star.copy()
+        self.w_true = w_star.copy() if (w_star is not None) else w_star
         self.dim = d
-        self.w_now_tron = np.ones((filter, 1)) # Fixed initial point for NeuroTron experiments
-        self.w_now_sgd = np.ones((filter, 1)) # Fixed initial point for SGD experiments
         self.step = eta
         self.minibatch = b
         self.w = width  # The w in the paper is the width of the net
         self.r = filter # The r in the paper - the filter dimension < dim
+        self.w_now_tron = np.ones((filter, 1)) if (filter is not None) else None # Initial point for NeuroTron experiments
+        self.w_now_sgd = np.ones((filter, 1)) if (filter is not None) else None # Initial point for SGD experiments
 
         # Choosing the M matrix 
         M_X = np.random.randn(filter, filter)
