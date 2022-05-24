@@ -16,27 +16,29 @@ class NeuroTron:
         self.minibatch = b
         self.w = width  # The w in the paper is the width of the net
         self.r = filter # The r in the paper - the filter dimension < dim
-        self.w_now_tron = np.ones((filter, 1)) if (filter is not None) else None # Initial point for NeuroTron experiments
-        self.w_now_sgd = np.ones((filter, 1)) if (filter is not None) else None # Initial point for SGD experiments
 
-        # Choosing the M matrix 
-        M_X = np.random.randn(filter, filter)
-        M_Y = np.random.randn(filter, d-filter) 
-        self.M = np.concatenate((M_X, M_Y), axis=1)
+        if (d is not None) and (width is not None) and (filter is not None):
+            self.w_now_tron = np.ones((filter, 1)) if (filter is not None) else None # Initial point for NeuroTron
+            self.w_now_sgd = np.ones((filter, 1)) if (filter is not None) else None # Initial point for SGD
 
-        # Fixing the neural net  
-        self.A_list = [] 
-        C = np.random.randn(filter, d)
+            # Choosing the M matrix
+            M_X = np.random.randn(filter, filter)
+            M_Y = np.random.randn(filter, d-filter)
+            self.M = np.concatenate((M_X, M_Y), axis=1)
 
-        c = 0 
-        k = width/2 
-        for i in range (width+1): 
-            factor =  (-k+c)
-            if factor != 0:
-               Z = self.M+factor*C
-               self.A_list.append(Z)
+            # Fixing the neural net
+            self.A_list = []
+            C = np.random.randn(filter, d)
 
-            c+=1 
+            c = 0
+            k = width/2
+            for i in range (width+1):
+                factor =  (-k+c)
+                if factor != 0:
+                    Z = self.M+factor*C
+                    self.A_list.append(Z)
+
+                c+=1
 
     def err_tron(self):
         return np.linalg.norm(self.w_true-self.w_now_tron)
