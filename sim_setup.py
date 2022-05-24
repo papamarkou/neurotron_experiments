@@ -109,3 +109,20 @@ sim06_setup = {
     'seed' : 6,
     'name' : 'sim06'
 }
+
+# %% Setup for simulation 7
+
+sim07_setup = {
+    'sample_data' : lambda s : np.random.normal(loc=0.0, scale=3.0, size=s),
+    'filterlist' : [25], # r: filter size
+    'dlist' : [50], # n: input dimension
+    'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
+    'betalist' : [0.5], # beta
+    'etalist' : [0.0001], # eta: learning rate
+    'blist' : [16], # b
+    'width' : 10, # k: width
+    'num_iters' : 40000,
+    'run_sgd' : True,
+    'seed' : 7,
+    'name' : 'sim07'
+}
