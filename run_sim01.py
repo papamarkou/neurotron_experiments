@@ -36,5 +36,5 @@ tron_error, sgd_error = neurotron.run(
 
 # %% Save output of simulation 1
 
-np.savetxt(output_path.joinpath(sim01_setup['name']+'_tron.csv'), np.squeeze(tron_error), delimiter=',')
-np.savetxt(output_path.joinpath(sim01_setup['name']+'_sgd.csv'), np.squeeze(sgd_error), delimiter=',')
+np.savetxt(output_path.joinpath(sim01_setup['name']+'_tron.csv'), np.transpose(tron_error), delimiter=',')
+np.savetxt(output_path.joinpath(sim01_setup['name']+'_sgd.csv'), np.transpose(sgd_error), delimiter=',')
