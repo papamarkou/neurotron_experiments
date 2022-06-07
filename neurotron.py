@@ -124,44 +124,33 @@ class NeuroTron:
         return self.err_sgd()
 
     def run(self, filterlist, dlist, boundlist, betalist, etalist, blist, width, num_iters, run_sgd=False, verbose=True):
-        filter_len = len(filterlist)
-        d_len = len(dlist)
-        bound_len = len(boundlist)
-        beta_len = len(betalist)
-        eta_len = len(etalist)
-        b_len = len(blist)
+        num_runs = len(filterlist)
 
         if verbose:
-            num_runs = filter_len * d_len * bound_len * beta_len * eta_len * b_len
             ir = 0
             msg = 'Iteration {:' + str(len(str(num_runs))) + '} out of ' + str(num_runs)
 
-        tron_error = np.empty([num_iters, filter_len, d_len, bound_len, beta_len, eta_len, b_len])
+        tron_error = np.empty([num_runs, num_iters])
 
         if run_sgd:
-            sgd_error = np.empty([num_iters, filter_len, d_len, bound_len, beta_len, eta_len, b_len])
+            sgd_error = np.empty([num_runs, num_iters])
         else:
             sgd_error = None
 
-        for ifilter, filter in enumerate(filterlist):
+        for i in range(num_runs):
+            if verbose:
+                ir += 1
+                print(msg.format(ir, num_runs))
+
             # Choosing the ground truth w_* from a Normal distribution
-            w_star = np.random.randn(filter, 1)
+            w_star = np.random.randn(filterlist[i], 1)
 
-            for id, d in enumerate(dlist):
-                for ibound, bound in enumerate(boundlist):
-                    for ibeta, beta in enumerate(betalist):
-                        for ieta, eta in enumerate(etalist):
-                            for ib, b in enumerate(blist):
-                                if verbose:
-                                    ir += 1
-                                    print(msg.format(ir, num_runs))
+            self.reset(w_star, dlist[i], etalist[i], blist[i], width, filterlist[i])
 
-                                self.reset(w_star, d, eta, b, width, filter)
+            for j in range(num_iters):
+                tron_error[i, j] = self.update_tron(boundlist[i], betalist[i])
 
-                                for i in range(num_iters):
-                                    tron_error[i, ifilter, id, ibound, ibeta, ieta, ib] = self.update_tron(bound, beta)
-
-                                    if run_sgd:
-                                        sgd_error[i, ifilter, id, ibound, ibeta, ieta, ib] = self.update_sgd(bound, beta)
+                if run_sgd:
+                    sgd_error[i, j] = self.update_sgd(boundlist[i], betalist[i])
 
         return tron_error, sgd_error
