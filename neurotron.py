@@ -12,7 +12,10 @@ class NeuroTron:
 
         self.w_true = w_star.copy() if (w_star is not None) else w_star
         self.dim = d
-        self.step = eta
+        if eta is None:
+            self.step_tron, self.step_sgd = None, None
+        else:
+            self.step_tron, self.step_sgd = eta
         self.minibatch = b
         self.w = width  # The w in the paper is the width of the net
         self.r = filter # The r in the paper - the filter dimension < dim
@@ -103,7 +106,7 @@ class NeuroTron:
             sum += (y_oracle[i]-y_now[i])*data[i, :]
         
         g_tron = (1/self.minibatch)*np.matmul(self.M, sum.reshape(self.dim, 1))
-        self.w_now_tron += self.step*g_tron
+        self.w_now_tron += self.step_tron*g_tron
         return self.err_tron()
 
     def update_sgd(self, bound, beta):
@@ -120,10 +123,13 @@ class NeuroTron:
             sum += (y_oracle[i]-y_now[i])*np.reshape(net_der_now[:, 0], (self.r, 1))
         
         g_sgd = (1/self.minibatch)*sum 
-        self.w_now_sgd += self.step*g_sgd
+        self.w_now_sgd += self.step_sgd*g_sgd
         return self.err_sgd()
 
-    def run(self, filterlist, dlist, boundlist, betalist, etalist, blist, width, num_iters, run_sgd=False, verbose=True):
+    def run(
+            self, filterlist, dlist, boundlist, betalist, etalist_tron, blist, width, num_iters,
+            etalist_sgd=None, verbose=True
+        ):
         num_runs = len(filterlist)
 
         if verbose:
@@ -132,7 +138,7 @@ class NeuroTron:
 
         tron_error = np.empty([num_runs, num_iters])
 
-        if run_sgd:
+        if etalist_sgd is not None:
             sgd_error = np.empty([num_runs, num_iters])
         else:
             sgd_error = None
@@ -145,12 +151,12 @@ class NeuroTron:
             # Choosing the ground truth w_* from a Normal distribution
             w_star = np.random.randn(filterlist[i], 1)
 
-            self.reset(w_star, dlist[i], etalist[i], blist[i], width, filterlist[i])
+            self.reset(w_star, dlist[i], [etalist_tron[i], etalist_sgd[i]], blist[i], width, filterlist[i])
 
             for j in range(num_iters):
                 tron_error[i, j] = self.update_tron(boundlist[i], betalist[i])
 
-                if run_sgd:
+                if etalist_sgd is not None:
                     sgd_error[i, j] = self.update_sgd(boundlist[i], betalist[i])
 
         return tron_error, sgd_error

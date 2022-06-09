@@ -22,13 +22,13 @@ fontsize = 13
 
 # %% Set transparency
 
-transparent = True
+transparent = False
 
 # %% Generate and save NeuroTron-vs-SGD figure for simulation 1
 
 save = True
 
-for i in range(1, tron_error_loaded.shape[1]):
+for i in range(tron_error_loaded.shape[1]):
     plt.figure(figsize=[8, 5])
 
     xrange = range(1, tron_error_loaded.shape[0]+1)
@@ -49,9 +49,10 @@ for i in range(1, tron_error_loaded.shape[1]):
         label=labels[1]
     )
 
-    plt.ylim([-4.2, 0.2])   
+    plt.ylim([-4.2, 0.2])
+    # plt.ylim([-20.2, 1.2])
 
-    plt.title(r'Normal data ($\sigma=1$), $\beta_\ast$ = {}'.format(sim05_setup['betalist'][i]))
+    plt.title(r'Normal data ($\sigma=1$), $\beta$ = {}'.format(sim05_setup['betalist'][i]))
 
     plt.xlabel('Iteration', fontsize=fontsize)
     plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
@@ -79,3 +80,5 @@ for i in range(1, tron_error_loaded.shape[1]):
             bbox_inches='tight',
             pad_inches=0.1
         )
+
+# %%
