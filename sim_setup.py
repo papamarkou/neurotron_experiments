@@ -10,16 +10,14 @@ output_path = Path().joinpath('output')
 
 # %% Setup for simulation 1: data ~ normal(mu=0, sigma=1), varying theta_{*}
 
-num_runs = 7
-
 sim01_setup = {
     'sample_data' : lambda s : np.random.normal(loc=0.0, scale=1.0, size=s),
-    'filterlist' : [25 for _ in range(num_runs)], # r: filter size
-    'dlist' : [100 for _ in range(num_runs)], # n: input dimension
+    'filterlist' : [25 for _ in range(7)], # r: filter size
+    'dlist' : [100 for _ in range(7)], # n: input dimension
     'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
-    'betalist' : [0.5 for _ in range(num_runs)], # beta
-    'etalist' : [0.0001 for _ in range(num_runs)], # eta: learning rate
-    'blist' : [16 for _ in range(num_runs)], # b
+    'betalist' : [0.5 for _ in range(7)], # beta
+    'etalist' : [0.0001 for _ in range(7)], # eta: learning rate
+    'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,
     'run_sgd' : True,
@@ -31,12 +29,12 @@ sim01_setup = {
 
 sim02_setup = {
     'sample_data' : lambda s : np.random.normal(loc=0.0, scale=3.0, size=s),
-    'filterlist' : [25], # r: filter size
-    'dlist' : [50], # n: input dimension
+    'filterlist' : [25 for _ in range(7)], # r: filter size
+    'dlist' : [50 for _ in range(7)], # n: input dimension
     'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
-    'betalist' : [0.5], # beta
-    'etalist' : [0.0001], # eta: learning rate
-    'blist' : [16], # b
+    'betalist' : [0.5 for _ in range(7)], # beta
+    'etalist' : [0.0001 for _ in range(7)], # eta: learning rate
+    'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,
     'run_sgd' : True,
@@ -48,12 +46,12 @@ sim02_setup = {
 
 sim03_setup = {
     'sample_data' : lambda s : np.random.laplace(loc=0.0, scale=2.0, size=s),
-    'filterlist' : [25], # r: filter size
-    'dlist' : [50], # n: input dimension
+    'filterlist' : [25 for _ in range(7)], # r: filter size
+    'dlist' : [50 for _ in range(7)], # n: input dimension
     'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
-    'betalist' : [0.5], # beta
-    'etalist' : [0.0001], # eta: learning rate
-    'blist' : [16], # b
+    'betalist' : [0.5 for _ in range(7)], # beta
+    'etalist' : [0.0001 for _ in range(7)], # eta: learning rate
+    'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,
     'run_sgd' : True,
@@ -65,12 +63,12 @@ sim03_setup = {
 
 sim04_setup = {
     'sample_data' : lambda s : np.random.standard_t(4., size=s),
-    'filterlist' : [25], # r: filter size
-    'dlist' : [100], # n: input dimension
+    'filterlist' : [25 for _ in range(7)], # r: filter size
+    'dlist' : [100 for _ in range(7)], # n: input dimension
     'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
-    'betalist' : [0.5], # beta
-    'etalist' : [0.0001], # eta: learning rate
-    'blist' : [16], # b
+    'betalist' : [0.5 for _ in range(7)], # beta
+    'etalist' : [0.0001 for _ in range(7)], # eta: learning rate
+    'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,
     'run_sgd' : True,
