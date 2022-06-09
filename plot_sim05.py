@@ -51,7 +51,7 @@ for i in range(1, tron_error_loaded.shape[1]):
 
     plt.ylim([-4.2, 0.2])   
 
-    plt.title(r'Normal data ($\sigma=1$), $\theta_\ast$ = {}'.format(sim05_setup['boundlist'][i]))
+    plt.title(r'Normal data ($\sigma=1$), $\beta_\ast$ = {}'.format(sim05_setup['betalist'][i]))
 
     plt.xlabel('Iteration', fontsize=fontsize)
     plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
