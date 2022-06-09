@@ -5,16 +5,16 @@ import numpy as np
 from matplotlib import pyplot as plt
 from pathlib import Path
 
-from sim_setup import output_path, sim01_setup
+from sim_setup import output_path, sim05_setup
 
 # %% Create output path if it does not exist
 
 output_path.mkdir(parents=True, exist_ok=True)
 
-# %% Load numerical output
+# %% Load numerical output of simulation 1
 
-tron_error_loaded = np.loadtxt(output_path.joinpath(sim01_setup['name']+'_tron.csv'), delimiter=',')
-sgd_error_loaded = np.loadtxt(output_path.joinpath(sim01_setup['name']+'_sgd.csv'), delimiter=',')
+tron_error_loaded = np.loadtxt(output_path.joinpath(sim05_setup['name']+'_tron.csv'), delimiter=',')
+sgd_error_loaded = np.loadtxt(output_path.joinpath(sim05_setup['name']+'_sgd.csv'), delimiter=',')
 
 # %% Set font size
 
@@ -24,7 +24,7 @@ fontsize = 13
 
 transparent = True
 
-# %% Generate and save NeuroTron-vs-SGD figure
+# %% Generate and save NeuroTron-vs-SGD figure for simulation 1
 
 save = True
 
@@ -51,7 +51,7 @@ for i in range(1, tron_error_loaded.shape[1]):
 
     plt.ylim([-4.2, 0.2])   
 
-    plt.title(r'Normal data ($\sigma=1$), $\theta_\ast$ = {}'.format(sim01_setup['boundlist'][i]))
+    plt.title(r'Normal data ($\sigma=1$), $\theta_\ast$ = {}'.format(sim05_setup['boundlist'][i]))
 
     plt.xlabel('Iteration', fontsize=fontsize)
     plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
@@ -71,7 +71,7 @@ for i in range(1, tron_error_loaded.shape[1]):
     if save:
         plt.savefig(
             output_path.joinpath(
-                sim01_setup['name']+'_tron_vs_sgd_theta_val'+str(i+1).zfill(len(str(tron_error_loaded.shape[1])))+'.png'
+                sim05_setup['name']+'_tron_vs_sgd_theta_val'+str(i+1).zfill(len(str(tron_error_loaded.shape[1])))+'.png'
             ),
             dpi=300,
             pil_kwargs={'quality': 100},
