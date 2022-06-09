@@ -75,3 +75,20 @@ sim04_setup = {
     'seed' : 4,
     'name' : 'sim04'
 }
+
+# %% Setup for simulation 5: data ~ normal(mu=0, sigma=1), varying beta
+
+sim05_setup = {
+    'sample_data' : lambda s : np.random.normal(loc=0.0, scale=1.0, size=s),
+    'filterlist' : [25 for _ in range(7)], # r: filter size
+    'dlist' : [100 for _ in range(7)], # n: input dimension
+    'boundlist' : [0.25 for _ in range(7)], # theta_{*}
+    'betalist' : [0., 0.005, 0.05, 0.1, 0.2, 0.5, 0.9], # beta
+    'etalist' : [0.0001 for _ in range(7)], # eta: learning rate
+    'blist' : [16 for _ in range(7)], # b
+    'width' : 10, # k: width
+    'num_iters' : 40000,
+    'run_sgd' : True,
+    'seed' : 5,
+    'name' : 'sim05'
+}
