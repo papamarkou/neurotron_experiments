@@ -28,12 +28,12 @@ transparent = False
 
 ylims = [
     [-16.2, 1.2],
-    [-4.2, 0.2],
-    [-4.2, 0.2],
-    [-4.2, 0.2],
-    [-4.2, 0.2],
-    [-4.2, 0.2],
-    [-4.2, 0.2]
+    [-4.2, 1.2],
+    [-4.2, 1.2],
+    [-4.2, 1.2],
+    [-4.2, 1.2],
+    [-4.2, 1.2],
+    [-4.2, 1.2]
 ]
 
 yticks = [
@@ -83,7 +83,7 @@ for i in range(tron_error_loaded.shape[1]):
 
     plt.ylim(ylims[i])
 
-    plt.title(r'Normal data ($\sigma=1$), $\beta$ = {}'.format(sim06_setup['betalist'][i]))
+    plt.title(r'Normal data ($\sigma=3$), $\theta_\ast$ = {}'.format(sim06_setup['betalist'][i]))
 
     plt.xlabel('Iteration', fontsize=fontsize)
     plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)

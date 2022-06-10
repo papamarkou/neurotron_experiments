@@ -83,7 +83,7 @@ for i in range(tron_error_loaded.shape[1]):
 
     plt.ylim(ylims[i])
 
-    plt.title(r'Normal data ($\sigma=1$), $\beta$ = {}'.format(sim07_setup['betalist'][i]))
+    plt.title(r'Laplace data ($scale=2$), $\theta_\ast$ = {}'.format(sim07_setup['betalist'][i]))
 
     plt.xlabel('Iteration', fontsize=fontsize)
     plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
