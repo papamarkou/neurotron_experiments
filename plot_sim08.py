@@ -58,7 +58,7 @@ ylabels = [
 
 # %% Generate and save NeuroTron-vs-SGD figure
 
-save = False
+save = True
 
 for i in range(tron_error_loaded.shape[1]):
     plt.figure(figsize=[8, 5])
@@ -110,5 +110,3 @@ for i in range(tron_error_loaded.shape[1]):
             bbox_inches='tight',
             pad_inches=0.1
         )
-
-# %%
