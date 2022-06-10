@@ -27,11 +27,11 @@ tron_error, sgd_error = neurotron.run(
     sim04_setup['dlist'],
     sim04_setup['boundlist'],
     sim04_setup['betalist'],
-    sim04_setup['etalist'],
+    sim04_setup['etalist_tron'],
     sim04_setup['blist'],
     sim04_setup['width'],
     sim04_setup['num_iters'],
-    run_sgd=sim04_setup['run_sgd']
+    etalist_sgd=sim04_setup['etalist_sgd']
 )
 
 # %% Save output

@@ -11,7 +11,7 @@ from sim_setup import output_path, sim03_setup
 
 output_path.mkdir(parents=True, exist_ok=True)
 
-# %% Load numerical output
+# %% Load numerical output of simulation 1
 
 tron_error_loaded = np.loadtxt(output_path.joinpath(sim03_setup['name']+'_tron.csv'), delimiter=',')
 sgd_error_loaded = np.loadtxt(output_path.joinpath(sim03_setup['name']+'_sgd.csv'), delimiter=',')
@@ -22,13 +22,45 @@ fontsize = 13
 
 # %% Set transparency
 
-transparent = True
+transparent = False
 
-# %% Generate and save NeuroTron-vs-SGD figure
+# %% Set y axis limits and ticks
+
+ylims = [
+    [-16.2, 1.2],
+    [-4.2, 0.2],
+    [-4.2, 0.2],
+    [-4.2, 0.2],
+    [-4.2, 0.2],
+    [-4.2, 0.2],
+    [-4.2, 0.2]
+]
+
+yticks = [
+    [-14, -12, -10, -8, -6, -4, -2, 0],
+    [-4, -3, -2, -1, 0],
+    [-4, -3, -2, -1, 0],
+    [-4, -3, -2, -1, 0],
+    [-4, -3, -2, -1, 0],
+    [-4, -3, -2, -1, 0],
+    [-4, -3, -2, -1, 0]
+]
+
+ylabels = [
+    ['1e-14', '1e-12', '1e-10', '1e-8', '1e-6', '1e-4', '1e-2', '1e-0'],
+    ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0'],
+    ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0'],
+    ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0'],
+    ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0'],
+    ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0'],
+    ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0']
+]
+
+# %% Generate and save NeuroTron-vs-SGD figure for simulation 1
 
 save = True
 
-for i in range(1, tron_error_loaded.shape[1]):
+for i in range(tron_error_loaded.shape[1]):
     plt.figure(figsize=[8, 5])
 
     xrange = range(1, tron_error_loaded.shape[0]+1)
@@ -49,9 +81,9 @@ for i in range(1, tron_error_loaded.shape[1]):
         label=labels[1]
     )
 
-    plt.ylim([-4.2, 0.2])   
+    plt.ylim(ylims[i])
 
-    plt.title(r'Normal data ($\sigma=1$), $\theta_\ast$ = {}'.format(sim03_setup['boundlist'][i]))
+    plt.title(r'Normal data ($\sigma=1$), $\beta$ = {}'.format(sim03_setup['betalist'][i]))
 
     plt.xlabel('Iteration', fontsize=fontsize)
     plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
@@ -60,8 +92,7 @@ for i in range(1, tron_error_loaded.shape[1]):
     xticks = range(0, sgd_error_loaded.shape[0]+xtickstep, xtickstep)
     plt.xticks(ticks=xticks, fontsize=fontsize)
 
-    yticks = [-4, -3, -2, -1, 0]
-    plt.yticks(ticks=yticks, labels=['1e-4', '1e-3', '1e-2', '1e-1', '1e-0'], fontsize=fontsize)
+    plt.yticks(ticks=yticks[i], labels=ylabels[i], fontsize=fontsize)
 
     leg = plt.legend(frameon=False, fontsize=fontsize, handletextpad=0.5, ncol=2)
 
