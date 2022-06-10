@@ -83,7 +83,7 @@ for i in range(tron_error_loaded.shape[1]):
 
     plt.ylim(ylims[i])
 
-    plt.title(r'Student\'s t data ($df=4$), $\theta_\ast$ = {}'.format(sim04_setup['boundlist'][i]))
+    plt.title(r't-distributed data ($df=4$), $\theta_\ast$ = {}'.format(sim04_setup['boundlist'][i]))
 
     plt.xlabel('Iteration', fontsize=fontsize)
     plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
