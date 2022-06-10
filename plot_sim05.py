@@ -11,7 +11,7 @@ from sim_setup import output_path, sim05_setup
 
 output_path.mkdir(parents=True, exist_ok=True)
 
-# %% Load numerical output of simulation 1
+# %% Load numerical output
 
 tron_error_loaded = np.loadtxt(output_path.joinpath(sim05_setup['name']+'_tron.csv'), delimiter=',')
 sgd_error_loaded = np.loadtxt(output_path.joinpath(sim05_setup['name']+'_sgd.csv'), delimiter=',')
@@ -56,7 +56,7 @@ ylabels = [
     ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0']
 ]
 
-# %% Generate and save NeuroTron-vs-SGD figure for simulation 1
+# %% Generate and save NeuroTron-vs-SGD figure
 
 save = True
 
