@@ -102,7 +102,7 @@ for i in range(tron_error_loaded.shape[1]):
     if save:
         plt.savefig(
             output_path.joinpath(
-                sim05_setup['name']+'_tron_vs_sgd_theta_val'+str(i+1).zfill(len(str(tron_error_loaded.shape[1])))+'.png'
+                sim05_setup['name']+'_tron_vs_sgd_beta_val'+str(i+1).zfill(len(str(tron_error_loaded.shape[1])))+'.png'
             ),
             dpi=300,
             pil_kwargs={'quality': 100},
