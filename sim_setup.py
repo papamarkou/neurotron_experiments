@@ -33,11 +33,11 @@ sim02_setup = {
     'dlist' : [50 for _ in range(7)], # n: input dimension
     'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
     'betalist' : [0.5 for _ in range(7)], # beta
-    'etalist_tron' : [0.0001 for _ in range(7)], # eta: learning rate for NeuroTron
+    'etalist_tron' : [0.00005 for _ in range(7)], # eta: learning rate for NeuroTron
     'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,
-    'etalist_sgd' : [0.0001 for _ in range(7)], # eta: learning rate for SGD
+    'etalist_sgd' : [0.00005 for _ in range(7)], # eta: learning rate for SGD
     'seed' : 2,
     'name' : 'sim02'
 }
@@ -50,11 +50,11 @@ sim03_setup = {
     'dlist' : [50 for _ in range(7)], # n: input dimension
     'boundlist' : [0, 0.125, 0.25, 0.5, 1., 2., 4.], # theta_{*}
     'betalist' : [0.5 for _ in range(7)], # beta
-    'etalist_tron' : [0.0001 for _ in range(7)], # eta: learning rate for NeuroTron
+    'etalist_tron' : [0.00005 for _ in range(7)], # eta: learning rate for NeuroTron
     'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,
-    'etalist_sgd' : [0.0001 for _ in range(7)], # eta: learning rate for SGD
+    'etalist_sgd' : [0.00005 for _ in range(7)], # eta: learning rate for SGD
     'seed' : 3,
     'name' : 'sim03'
 }
@@ -101,11 +101,11 @@ sim06_setup = {
     'dlist' : [50 for _ in range(7)], # n: input dimension
     'boundlist' : [0.25 for _ in range(7)], # theta_{*}
     'betalist' : [0., 0.005, 0.05, 0.1, 0.2, 0.5, 0.9], # beta
-    'etalist_tron' : [0.0001 for _ in range(7)], # eta: learning rate for NeuroTron
+    'etalist_tron' : [0.00005 for _ in range(7)], # eta: learning rate for NeuroTron
     'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,
-    'etalist_sgd' : [0.0001 for _ in range(7)], # eta: learning rate for SGD
+    'etalist_sgd' : [0.00005 for _ in range(7)], # eta: learning rate for SGD
     'seed' : 6,
     'name' : 'sim06'
 }
@@ -118,11 +118,11 @@ sim07_setup = {
     'dlist' : [50 for _ in range(7)], # n: input dimension
     'boundlist' : [0.25 for _ in range(7)], # theta_{*}
     'betalist' : [0., 0.005, 0.05, 0.1, 0.2, 0.5, 0.9], # beta
-    'etalist_tron' : [0.0001 for _ in range(7)], # eta: learning rate for NeuroTron
+    'etalist_tron' : [0.00005 for _ in range(7)], # eta: learning rate for NeuroTron
     'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,
-    'etalist_sgd' : [0.0001 for _ in range(7)], # eta: learning rate for SGD
+    'etalist_sgd' : [0.00005 for _ in range(7)], # eta: learning rate for SGD
     'seed' : 7,
     'name' : 'sim07'
 }
