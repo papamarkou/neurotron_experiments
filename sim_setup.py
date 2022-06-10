@@ -99,7 +99,7 @@ sim05_setup = {
     'dlist' : [100 for _ in range(7)], # n: input dimension
     'boundlist' : [0.25 for _ in range(2)], # theta_{*}
     'betalist' : [0., 0.005], # beta
-    'etalist_tron' : [0.0005 for _ in range(2)], # eta: learning rate for NeuroTron
+    'etalist_tron' : [0.0001 for _ in range(2)], # eta: learning rate for NeuroTron
     'blist' : [16 for _ in range(7)], # b
     'width' : 10, # k: width
     'num_iters' : 40000,

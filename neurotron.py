@@ -1,21 +1,19 @@
 import numpy as np
 
 class NeuroTron:
-    def __init__(self, sample_data=None, w_star=None, d=None, eta=None, b=None, width=None, filter=None):
+    def __init__(self, sample_data=None, w_star=None, d=None, eta_tron=None, eta_sgd=None, b=None, width=None, filter=None):
         self.sample_data = sample_data
 
-        self.reset(w_star, d, eta, b, width, filter)
+        self.reset(w_star, d, eta_tron, b, width, filter)
 
-    def reset(self, w_star, d, eta, b, width, filter):
+    def reset(self, w_star, d, eta_tron, b, width, filter, eta_sgd=None):
         if (w_star is not None) and (filter is not None):
             assert(len(w_star) == filter)
 
         self.w_true = w_star.copy() if (w_star is not None) else w_star
         self.dim = d
-        if eta is None:
-            self.step_tron, self.step_sgd = None, None
-        else:
-            self.step_tron, self.step_sgd = eta
+        self.step_tron = eta_tron
+        self.step_sgd = eta_sgd
         self.minibatch = b
         self.w = width  # The w in the paper is the width of the net
         self.r = filter # The r in the paper - the filter dimension < dim
@@ -151,7 +149,7 @@ class NeuroTron:
             # Choosing the ground truth w_* from a Normal distribution
             w_star = np.random.randn(filterlist[i], 1)
 
-            self.reset(w_star, dlist[i], [etalist_tron[i], etalist_sgd[i]], blist[i], width, filterlist[i])
+            self.reset(w_star, dlist[i], etalist_tron[i], blist[i], width, filterlist[i], eta_sgd=etalist_sgd[i])
 
             for j in range(num_iters):
                 tron_error[i, j] = self.update_tron(boundlist[i], betalist[i])
