@@ -68,7 +68,7 @@ xrange = range(1, tron_error_loaded.shape[0]+1)
 
 labels = ['Neurotron', 'SGD']
 
-fig, axes = plt.subplots(nrows=len(theta_vals), ncols=1, sharex=True, figsize=(8, 14))
+fig, axes = plt.subplots(nrows=len(theta_vals), ncols=1, sharex=True, figsize=(8, 16))
 
 plt.subplots_adjust(hspace = 0.15)
 
@@ -87,7 +87,7 @@ for i in range(len(theta_vals)):
         label=labels[1]
     )
 
-    axes[i].text(34000, 0.1, r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][theta_vals[i]]), fontsize=fontsize)
+    axes[i].text(33000, 0.1, r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][theta_vals[i]]), fontsize=fontsize)
 
     axes[i].set_yticks(yticks[theta_vals[i]])
     axes[i].set_yticklabels(ylabels[theta_vals[i]], fontsize=fontsize)
