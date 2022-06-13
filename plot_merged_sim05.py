@@ -68,7 +68,7 @@ xrange = range(1, tron_error_loaded.shape[0]+1)
 
 labels = ['Neurotron', 'SGD']
 
-fig, axes = plt.subplots(nrows=len(beta_vals), ncols=1, sharex=True, figsize=(8, 16))
+fig, axes = plt.subplots(nrows=len(beta_vals), ncols=1, sharex=True, figsize=(8, 18))
 
 plt.subplots_adjust(hspace = 0.15)
 
