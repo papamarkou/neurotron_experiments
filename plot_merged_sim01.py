@@ -58,7 +58,7 @@ ylabels = [
 
 # %% Selection of theta values to plot
 
-theta_vals = [2, 3, 4, 5]
+theta_vals = [1, 3, 4, 5, 6]
 
 # %%
 
@@ -68,7 +68,7 @@ xrange = range(1, tron_error_loaded.shape[0]+1)
 
 labels = ['Neurotron', 'SGD']
 
-fig, axes = plt.subplots(nrows=4, ncols=1, sharex=True, figsize=(8, 12))
+fig, axes = plt.subplots(nrows=len(theta_vals), ncols=1, sharex=True, figsize=(8, 14))
 
 plt.subplots_adjust(hspace = 0.15)
 
@@ -101,7 +101,7 @@ axes[3].set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
 if save:
     plt.savefig(
         output_path.joinpath(
-            sim01_setup['name']+'_tron_vs_sgd_theta_val'+str(i+1).zfill(len(str(tron_error_loaded.shape[1])))+'.png'
+            sim01_setup['name']+'_tron_vs_sgd_merged_theta_vals.png'
         ),
         dpi=300,
         pil_kwargs={'quality': 100},
