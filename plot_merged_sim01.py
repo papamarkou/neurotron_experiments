@@ -87,10 +87,14 @@ for i in range(len(theta_vals)):
         label=labels[1]
     )
 
-    axes[i].text(33000, 0.1, r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][theta_vals[i]]), fontsize=fontsize)
+    axes[i].set_title(
+        r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][theta_vals[i]]), y=1.0, pad=-23, fontsize=fontsize
+    )
 
     axes[i].set_yticks(yticks[theta_vals[i]])
     axes[i].set_yticklabels(ylabels[theta_vals[i]], fontsize=fontsize)
+
+    axes[i].legend(labels=labels, loc='upper right', ncol=1, fontsize=fontsize, frameon=False)
 
 xticks = np.linspace(0, 40000, num=9)
 xticklabels = [str(round(i)) for i in xticks]

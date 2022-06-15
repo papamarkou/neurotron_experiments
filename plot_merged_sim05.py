@@ -87,10 +87,14 @@ for i in range(len(beta_vals)):
         label=labels[1]
     )
 
-    axes[i].text(33000, 0.1, r'$\beta$ = {}'.format(sim05_setup['betalist'][beta_vals[i]]), fontsize=fontsize)
+    axes[i].set_title(
+        r'$\beta$ = {}'.format(sim05_setup['betalist'][beta_vals[i]]), y=1.0, pad=-23, fontsize=fontsize
+    )
 
     axes[i].set_yticks(yticks[beta_vals[i]])
     axes[i].set_yticklabels(ylabels[beta_vals[i]], fontsize=fontsize)
+
+    axes[i].legend(labels=labels, loc='upper right', ncol=1, fontsize=fontsize, frameon=False)
 
 xticks = np.linspace(0, 40000, num=9)
 xticklabels = [str(round(i)) for i in xticks]
