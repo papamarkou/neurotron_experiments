@@ -69,7 +69,7 @@ titles = [
 
 # %% Set line labels
 
-sim01_theta_labels = [
+sim01_beta_labels = [
     r'$\beta$ = {}'.format(sim05_setup['betalist'][0]),
     r'$\beta$ = {}'.format(sim05_setup['betalist'][1]),
     r'$\beta$ = {}'.format(sim05_setup['betalist'][2]),
@@ -79,7 +79,7 @@ sim01_theta_labels = [
     r'$\beta$ = {}'.format(sim05_setup['betalist'][6])
 ]
 
-sim02_theta_labels = [
+sim02_beta_labels = [
     r'$\beta$ = {}'.format(sim06_setup['betalist'][0]),
     r'$\beta$ = {}'.format(sim06_setup['betalist'][1]),
     r'$\beta$ = {}'.format(sim06_setup['betalist'][2]),
@@ -89,7 +89,7 @@ sim02_theta_labels = [
     r'$\beta$ = {}'.format(sim06_setup['betalist'][6])
 ]
 
-sim03_theta_labels = [
+sim03_beta_labels = [
     r'$\beta$ = {}'.format(sim07_setup['betalist'][0]),
     r'$\beta$ = {}'.format(sim07_setup['betalist'][1]),
     r'$\beta$ = {}'.format(sim07_setup['betalist'][2]),
@@ -99,7 +99,7 @@ sim03_theta_labels = [
     r'$\beta$ = {}'.format(sim07_setup['betalist'][6])
 ]
 
-sim04_theta_labels = [
+sim04_beta_labels = [
     r'$\beta$ = {}'.format(sim08_setup['betalist'][0]),
     r'$\beta$ = {}'.format(sim08_setup['betalist'][1]),
     r'$\beta$ = {}'.format(sim08_setup['betalist'][2]),
@@ -109,11 +109,11 @@ sim04_theta_labels = [
     r'$\beta$ = {}'.format(sim08_setup['betalist'][6])
 ]
 
-theta_labels = [sim01_theta_labels, sim02_theta_labels, sim03_theta_labels, sim04_theta_labels]
+beta_labels = [sim01_beta_labels, sim02_beta_labels, sim03_beta_labels, sim04_beta_labels]
 
-# %% Selection of theta values to plot
+# %% Selection of beta values to plot
 
-theta_vals = [1, 2, 3, 4, 5, 6]
+beta_vals = [1, 2, 3, 4, 5, 6]
 
 # %%
 
@@ -126,26 +126,26 @@ fig, axes = plt.subplots(nrows=4, ncols=1, sharex=True, figsize=(8, 18))
 plt.subplots_adjust(hspace = 0.15)
 
 for i in range(4):
-    for j in range(len(theta_vals)):
+    for j in range(len(beta_vals)):
         axes[i].plot(
             xrange,
-            np.log10(tron_error_loaded[i][:, theta_vals[j]]),
+            np.log10(tron_error_loaded[i][:, beta_vals[j]]),
             linewidth=2.,
-            label=theta_labels[i][theta_vals[j]]
+            label=beta_labels[i][beta_vals[j]]
         )
 
-    axes[i].set_ylim(ylims[theta_vals[j]])
+    axes[i].set_ylim(ylims[beta_vals[j]])
 
-    axes[i].set_title(titles[i].format(sim05_setup['betalist'][theta_vals[j]]), y=1.0, fontsize=fontsize)
+    axes[i].set_title(titles[i].format(sim05_setup['betalist'][beta_vals[j]]), y=1.0, fontsize=fontsize)
 
-    axes[i].set_yticks(yticks[theta_vals[j]])
-    axes[i].set_yticklabels(ylabels[theta_vals[j]], fontsize=fontsize)
+    axes[i].set_yticks(yticks[beta_vals[j]])
+    axes[i].set_yticklabels(ylabels[beta_vals[j]], fontsize=fontsize)
 
     axes[i].legend(loc='upper right', ncol=2, fontsize=fontsize, frameon=False)
 
 if save:
     plt.savefig(
-        output_path.joinpath('all_sims_tron_merged_theta_vals.png'),
+        output_path.joinpath('all_sims_tron_merged_beta_vals.png'),
         dpi=300,
         pil_kwargs={'quality': 100},
         transparent=transparent,
