@@ -87,6 +87,8 @@ for i in range(len(beta_vals)):
         label=labels[1]
     )
 
+    axes[i].set_ylim(ylims[beta_vals[i]])
+
     axes[i].set_title(
         r'$\beta$ = {}'.format(sim08_setup['betalist'][beta_vals[i]]), y=1.0, pad=-23, fontsize=fontsize
     )

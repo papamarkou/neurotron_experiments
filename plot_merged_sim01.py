@@ -87,6 +87,8 @@ for i in range(len(theta_vals)):
         label=labels[1]
     )
 
+    axes[i].set_ylim(ylims[theta_vals[i]])
+
     axes[i].set_title(
         r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][theta_vals[i]]), y=1.0, pad=-23, fontsize=fontsize
     )
