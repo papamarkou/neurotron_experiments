@@ -17,6 +17,8 @@ declare -a files=(
   'plot_sim06.py'
   'plot_sim07.py'
   'plot_sim08.py'
+  'plot_tron_merged_beta.py'
+  'plot_tron_merged_theta.py'
 )
 
 for file in "${files[@]}"
