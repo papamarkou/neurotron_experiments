@@ -29,7 +29,9 @@ transparent = False
 # %% Set y axis limits and ticks
 
 ylims = [
-    # [-16.2, 2.2],
+    [-16.2, 2.2],
+    [-4.2, 1.2],
+    [-4.2, 1.2],
     [-4.2, 1.2],
     [-4.2, 1.2],
     [-4.2, 1.2],
@@ -37,7 +39,9 @@ ylims = [
 ]
 
 yticks = [
-    # [-16, -14, -12, -10, -8, -6, -4, -2, 0, 2],
+    [-16, -14, -12, -10, -8, -6, -4, -2, 0, 2],
+    [-4, -3, -2, -1, 0, 1],
+    [-4, -3, -2, -1, 0, 1],
     [-4, -3, -2, -1, 0, 1],
     [-4, -3, -2, -1, 0, 1],
     [-4, -3, -2, -1, 0, 1],
@@ -45,20 +49,75 @@ yticks = [
 ]
 
 ylabels = [
-    # ['1e-16', '1e-14', '1e-12', '1e-10', '1e-8', '1e-6', '1e-4', '1e-2', '1e-0', '1e+2'],
+    ['1e-16', '1e-14', '1e-12', '1e-10', '1e-8', '1e-6', '1e-4', '1e-2', '1e-0', '1e+2'],
+    ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0', '1e+1'],
+    ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0', '1e+1'],
     ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0', '1e+1'],
     ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0', '1e+1'],
     ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0', '1e+1'],
     ['1e-4', '1e-3', '1e-2', '1e-1', '1e-0', '1e+1']
 ]
 
+# %% Set sub-plots titles
+
+titles = [
+    r'Normal data ($\sigma=1$)',
+    r'Normal data ($\sigma=3$)',
+    r'Laplace data ($scale=2$)',
+    r't-distributed data ($df=4$)'
+]
+
+# %% Set line labels
+
+sim01_theta_labels = [
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][0]),
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][1]),
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][2]),
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][3]),
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][4]),
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][5]),
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][6])
+]
+
+sim02_theta_labels = [
+    r'$\theta_\ast$ = {}'.format(sim02_setup['boundlist'][0]),
+    r'$\theta_\ast$ = {}'.format(sim02_setup['boundlist'][1]),
+    r'$\theta_\ast$ = {}'.format(sim02_setup['boundlist'][2]),
+    r'$\theta_\ast$ = {}'.format(sim02_setup['boundlist'][3]),
+    r'$\theta_\ast$ = {}'.format(sim02_setup['boundlist'][4]),
+    r'$\theta_\ast$ = {}'.format(sim02_setup['boundlist'][5]),
+    r'$\theta_\ast$ = {}'.format(sim02_setup['boundlist'][6])
+]
+
+sim03_theta_labels = [
+    r'$\theta_\ast$ = {}'.format(sim03_setup['boundlist'][0]),
+    r'$\theta_\ast$ = {}'.format(sim03_setup['boundlist'][1]),
+    r'$\theta_\ast$ = {}'.format(sim03_setup['boundlist'][2]),
+    r'$\theta_\ast$ = {}'.format(sim03_setup['boundlist'][3]),
+    r'$\theta_\ast$ = {}'.format(sim03_setup['boundlist'][4]),
+    r'$\theta_\ast$ = {}'.format(sim03_setup['boundlist'][5]),
+    r'$\theta_\ast$ = {}'.format(sim03_setup['boundlist'][6])
+]
+
+sim04_theta_labels = [
+    r'$\theta_\ast$ = {}'.format(sim04_setup['boundlist'][0]),
+    r'$\theta_\ast$ = {}'.format(sim04_setup['boundlist'][1]),
+    r'$\theta_\ast$ = {}'.format(sim04_setup['boundlist'][2]),
+    r'$\theta_\ast$ = {}'.format(sim04_setup['boundlist'][3]),
+    r'$\theta_\ast$ = {}'.format(sim04_setup['boundlist'][4]),
+    r'$\theta_\ast$ = {}'.format(sim04_setup['boundlist'][5]),
+    r'$\theta_\ast$ = {}'.format(sim04_setup['boundlist'][6])
+]
+
+theta_labels = [sim01_theta_labels, sim02_theta_labels, sim03_theta_labels, sim04_theta_labels]
+
 # %% Selection of theta values to plot
 
-theta_vals = [0, 1, 2, 3, 4, 5, 6]
+theta_vals = [1, 2, 3, 4, 5, 6]
 
 # %%
 
-save = False
+save = True
 
 xrange = range(1, tron_error_loaded[0].shape[0]+1)
 
@@ -71,14 +130,18 @@ for i in range(4):
         axes[i].plot(
             xrange,
             np.log10(tron_error_loaded[i][:, theta_vals[j]]),
-            linewidth=2. # ,
-            # label=labels[0]
+            linewidth=2.,
+            label=theta_labels[i][theta_vals[j]]
         )
 
-    axes[i].set_ylim(ylims[theta_vals[i]])
+    axes[i].set_ylim(ylims[theta_vals[j]])
 
-    axes[i].set_yticks(yticks[theta_vals[i]])
-    axes[i].set_yticklabels(ylabels[theta_vals[i]], fontsize=fontsize)
+    axes[i].set_title(titles[i].format(sim01_setup['boundlist'][theta_vals[j]]), y=1.0, fontsize=fontsize)
+
+    axes[i].set_yticks(yticks[theta_vals[j]])
+    axes[i].set_yticklabels(ylabels[theta_vals[j]], fontsize=fontsize)
+
+    axes[i].legend(loc='upper right', ncol=2, fontsize=fontsize, frameon=False)
 
 if save:
     plt.savefig(
