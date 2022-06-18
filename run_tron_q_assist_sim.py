@@ -17,6 +17,8 @@ from random import sample
 import pandas as pd
 from numpy.linalg import  matrix_rank as rank
 
+from sim_setup import output_path
+
 #%% An example of the basic ploting mechanism  
 
 #type(data),np.shape(data)
@@ -62,8 +64,8 @@ class SGD_NeuroTron:
 
         avg = sum/width
 
-        print ("Filter dimension = ",self.r," Input dimension = ",self.dim," Shape of Avg-A = ",np.shape(avg)," Shape of M = ",np.shape(self.M))
-        print ("Rank of the (M,average  A_i) =(", rank(self.M), ",", rank(avg), ") ||Avg-A - M|| =",np.linalg.norm(avg - self.M)) 
+        # print ("Filter dimension = ",self.r," Input dimension = ",self.dim," Shape of Avg-A = ",np.shape(avg)," Shape of M = ",np.shape(self.M))
+        # print ("Rank of the (M,average  A_i) =(", rank(self.M), ",", rank(avg), ") ||Avg-A - M|| =",np.linalg.norm(avg - self.M)) 
         #print ("True weight =",self.w_true)
         #print ("Intiial weight =",self.w_now)
 
@@ -204,9 +206,12 @@ M = np.concatenate((M_X,M_Y),axis=1)
 C = np.random.randn(filter0,d0)
 
 samples = 5
-iterations = 4*(10**4) #4*8*(10**3)
+iterations = 4*(10**2) # 4*(10**4)
 
-np.random.seed(seed=1)
+np.random.seed(seed=100)
+# np.random.seed(seed=1)
+
+k = 0
 
 for filter in filterlist:
     w_star = np.random.randn(filter,1)  #Choosing the w_* from a Normal distribution 
@@ -241,11 +246,14 @@ for filter in filterlist:
                             err_final_neuro1 = np.sum(np.array([err_final_neuro1,err_list_neuro1]),axis=0)
                             err_final_neuro10 = np.sum(np.array([err_final_neuro10,err_list_neuro10]),axis=0)
 
+                        np.savetxt(output_path.joinpath('q_assist_neuro1_'+str(k)+'_tron.csv'), err_final_neuro1/samples, delimiter=',')
+                        np.savetxt(output_path.joinpath('q_assist_neuro10_'+str(k)+'_tron.csv'), err_final_neuro10/samples, delimiter=',')
+
+                        k = k + 1
+
                             #print(s)
 
-                        print ("(dim,iterations,eta,b,sigma,(beta,attack-bound)) =", (d,iterations,eta,b,filter,(beta,bound)))
+                        # print ("(dim,iterations,eta,b,sigma,(beta,attack-bound)) =", (d,iterations,eta,b,filter,(beta,bound)))
                         #print ("final sample averaged error for SGD =", err_final_sgd[iterations-1]/samples) 
-                        print ("final sample averaged error for NeuroTron, (q=1)=", err_final_neuro1[iterations-1]/samples) 
-                        print ("final sample averaged error for NeuroTron, (q=10)=", err_final_neuro10[iterations-1]/samples) 
-
-# %% Save output
+                        # print ("final sample averaged error for NeuroTron, (q=1)=", err_final_neuro1[iterations-1]/samples) 
+                        # print ("final sample averaged error for NeuroTron, (q=10)=", err_final_neuro10[iterations-1]/samples) 
