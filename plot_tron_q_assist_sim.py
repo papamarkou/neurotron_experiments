@@ -62,7 +62,7 @@ save = True
 
 xrange = range(1, iterations+1)
 
-plt.figure(figsize=[8, 5])
+plt.figure(figsize=[8, 4])
 
 for i in range(3):
     plt.plot(
@@ -74,10 +74,10 @@ for i in range(3):
 
 plt.ylim(ylims[0])
 
-plt.title("Neurotron (q=1)", fontsize=fontsize)
+# plt.title("Neurotron (q=1)", fontsize=fontsize)
 
 plt.xlabel('Iteration', fontsize=fontsize)
-plt.ylabel(r'Averaged parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
 plt.yticks(ticks=yticks[0], labels=ylabels[0], fontsize=fontsize)
 
@@ -97,7 +97,7 @@ if save:
 
 xrange = range(1, iterations+1)
 
-plt.figure(figsize=[8, 5])
+plt.figure(figsize=[8, 4])
 
 for i in range(3):
     plt.plot(
@@ -109,10 +109,10 @@ for i in range(3):
 
 plt.ylim(ylims[1])
 
-plt.title("Neurotron (q=10)", fontsize=fontsize)
+# plt.title("Neurotron (q=10)", fontsize=fontsize)
 
 plt.xlabel('Iteration', fontsize=fontsize)
-plt.ylabel(r'Averaged parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
 plt.yticks(ticks=yticks[1], labels=ylabels[1], fontsize=fontsize)
 
