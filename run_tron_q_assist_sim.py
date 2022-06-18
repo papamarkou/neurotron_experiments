@@ -206,7 +206,7 @@ M = np.concatenate((M_X,M_Y),axis=1)
 C = np.random.randn(filter0,d0)
 
 samples = 5
-iterations = 4*(10**2) # 4*(10**4)
+iterations = 4*(10**4)
 
 np.random.seed(seed=100)
 # np.random.seed(seed=1)
