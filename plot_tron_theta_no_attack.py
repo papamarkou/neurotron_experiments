@@ -44,7 +44,7 @@ leg_labels = [
 
 # %% Generate and save NeuroTron-vs-SGD figure
 
-save = False
+save = True
 
 plt.figure(figsize=[8, 4])
 

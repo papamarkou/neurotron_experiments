@@ -19,6 +19,10 @@ from numpy.linalg import  matrix_rank as rank
 
 from sim_setup import output_path
 
+# %% Set seed
+
+np.random.seed(seed=100)
+
 #%% An example of the basic ploting mechanism  
 
 #type(data),np.shape(data)
@@ -207,9 +211,6 @@ C = np.random.randn(filter0,d0)
 
 samples = 5
 iterations = 4*(10**4)
-
-np.random.seed(seed=100)
-# np.random.seed(seed=1)
 
 k = 0
 
