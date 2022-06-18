@@ -120,7 +120,7 @@ plt.legend(frameon=False, fontsize=fontsize, handletextpad=0.5, ncol=1)
 
 if save:
     plt.savefig(
-        output_path.joinpath('q_assist_neuro1_tron.png'),
+        output_path.joinpath('q_assist_neuro10_tron.png'),
         dpi=300,
         pil_kwargs={'quality': 100},
         transparent=transparent,
