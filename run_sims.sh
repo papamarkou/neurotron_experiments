@@ -9,7 +9,7 @@ declare -a files=(
   'run_sim06.py'
   'run_sim07.py'
   'run_sim08.py'
-  'run_tron_q_assist_sim.py'
+  # 'run_tron_q_assist_sim.py'
 )
 
 for file in "${files[@]}"
