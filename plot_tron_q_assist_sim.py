@@ -31,21 +31,25 @@ fontsize = 13
 
 transparent = False
 
-# %% Set y axis limits and ticks
+# %% Set axis limits and ticks
+
+xticks = np.linspace(0, 40000, num=9)
+
+xlabels = [str(round(i)) for i in xticks]
 
 ylims = [
     [-6.2, 1.2],
-    [-11.2, 1.2]
+    [-13.2, 1.2]
 ]
 
 yticks = [
     [-6, -5, -4, -3, -2, -1, 0, 1],
-    [-11, -9, -7, -5, -3, -1, 1]
+    [-13, -11, -9, -7, -5, -3, -1, 1]
 ]
 
 ylabels = [
     ['1e-6', '1e-5', '1e-4', '1e-3', '1e-2', '1e-1', '1e-0', '1e+1'],
-    ['1e-11', '1e-9', '1e-7', '1e-5', '1e-3', '1e-1', '1e+1']
+    ['1e-13', '1e-11', '1e-9', '1e-7', '1e-5', '1e-3', '1e-1', '1e+1']
 ]
 
 # %%
@@ -78,6 +82,8 @@ plt.ylim(ylims[0])
 
 plt.xlabel('Iteration', fontsize=fontsize)
 plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+
+plt.xticks(ticks=xticks, labels=xlabels, fontsize=fontsize)
 
 plt.yticks(ticks=yticks[0], labels=ylabels[0], fontsize=fontsize)
 
@@ -114,11 +120,7 @@ plt.ylim(ylims[1])
 plt.xlabel('Iteration', fontsize=fontsize)
 plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
-xticks = np.linspace(0, 40000, num=9)
-xticklabels = [str(round(i)) for i in xticks]
-
-plt.set_xticks(xticks)
-plt.set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
+plt.xticks(ticks=xticks, labels=xlabels, fontsize=fontsize)
 
 plt.yticks(ticks=yticks[1], labels=ylabels[1], fontsize=fontsize)
 
