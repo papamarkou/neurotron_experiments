@@ -28,51 +28,70 @@ transparent = False
 
 # %% Set y axis limits and ticks
 
-ylims = [-16.2, 2.2],
+ylims = [-16.2, 2.2]
 
-yticks = [-16, -14, -12, -10, -8, -6, -4, -2, 0, 2]
-
-ylabels = ['1e-16', '1e-14', '1e-12', '1e-10', '1e-8', '1e-6', '1e-4', '1e-2', '1e-0', '1e+2']
-
-leg_labels = [
-    r'Normal data ($\sigma=1$)',
-    r'Normal data ($\sigma=3$)',
-    r'Laplace data ($scale=2$)',
-    r't-distributed data ($df=4$)'
-
-]
-
-# %% Generate and save NeuroTron-vs-SGD figure
+# %%
 
 save = True
 
-plt.figure(figsize=[8, 4])
+fig, axes = plt.subplots(nrows=2, ncols=2, sharex=True, sharey=True, figsize=(16, 8))
 
-for i in range(4):
+plt.subplots_adjust(hspace=0.15, wspace=0.03)
 
-    xrange = range(1, tron_error_loaded[0].shape[0]+1)
+xrange = range(1, tron_error_loaded[0].shape[0]+1)
 
-    labels = ['Neurotron', 'SGD']
-
-    plt.plot(
+for i in range(2):
+    axes[0, 0].plot(
         xrange,
-        np.log10(tron_error_loaded[i][:, 0]),
-        linewidth=2.,
-        label=leg_labels[i]
+        np.log10(tron_error_loaded[0][:, i]),
+        linewidth=2. # ,
+        # label=labels[0]
     )
 
-plt.ylim([-15.4, 1.4])
+axes[0, 0].set_title(r'Normal data ($\sigma=1$)', fontsize=fontsize)
 
-plt.xlabel('Iteration', fontsize=fontsize)
-plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+axes[0, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+axes[1, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
-plt.yticks(
-    ticks=[-15, -13, -11, -9, -7, -5, -3, -1, 1],
-    labels=['1e-15', '1e-13', '1e-11', '1e-9', '1e-7', '1e-5', '1e-3', '1e-1', '1e+1'],
+axes[0, 0].set_ylim([-16.2, 2.2])
+
+axes[0, 0].set_yticks([-16, -14, -12, -10, -8, -6, -4, -2, 0, 2])
+
+axes[0, 0].set_yticklabels(
+    ['1e-16', '1e-14', '1e-12', '1e-10', '1e-8', '1e-6', '1e-4', '1e-2', '1e-0', '1e+2'],
+    rotation=0,
     fontsize=fontsize
 )
 
-plt.legend(frameon=False, fontsize=fontsize, handletextpad=0.5, ncol=1)
+for i in range(2):
+    axes[1, 0].plot(
+        xrange,
+        np.log10(tron_error_loaded[1][:, i]),
+        linewidth=2. # ,
+        # label=labels[0]
+    )
+
+axes[1, 0].set_title(r'Normal data ($\sigma=3$)', fontsize=fontsize)
+
+for i in range(2):
+    axes[0, 1].plot(
+        xrange,
+        np.log10(tron_error_loaded[2][:, i]),
+        linewidth=2. # ,
+        # label=labels[0]
+    )
+
+axes[0, 1].set_title(r'Laplace data ($scale=2$)', fontsize=fontsize)
+
+for i in range(2):
+    axes[1, 1].plot(
+        xrange,
+        np.log10(tron_error_loaded[3][:, i]),
+        linewidth=2. # ,
+        # label=labels[0]
+    )
+
+axes[1, 1].set_title(r't-distributed data ($df=4$)', fontsize=fontsize)
 
 # %%
 
