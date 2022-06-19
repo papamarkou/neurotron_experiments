@@ -62,7 +62,7 @@ theta_vals = [0, 0.5, 1]
 
 # %%
 
-save = True
+save = False
 
 xrange = range(1, iterations+1)
 

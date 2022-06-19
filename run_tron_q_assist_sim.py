@@ -21,7 +21,7 @@ from sim_setup import output_path
 
 # %% Set seed
 
-np.random.seed(seed=1000)
+np.random.seed(seed=1001)
 
 #%% An example of the basic ploting mechanism  
 
