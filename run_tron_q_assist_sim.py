@@ -209,7 +209,7 @@ M_Y = np.random.randn(filter0,d0-filter0)
 M = np.concatenate((M_X,M_Y),axis=1)
 C = np.random.randn(filter0,d0)
 
-samples = 5
+samples = 1 # 5
 iterations = 4*(10**4)
 
 k = 0
@@ -247,8 +247,10 @@ for filter in filterlist:
                             err_final_neuro1 = np.sum(np.array([err_final_neuro1,err_list_neuro1]),axis=0)
                             err_final_neuro10 = np.sum(np.array([err_final_neuro10,err_list_neuro10]),axis=0)
 
-                        np.savetxt(output_path.joinpath('q_assist_neuro1_'+str(k)+'_tron.csv'), err_final_neuro1/samples, delimiter=',')
-                        np.savetxt(output_path.joinpath('q_assist_neuro10_'+str(k)+'_tron.csv'), err_final_neuro10/samples, delimiter=',')
+                        np.savetxt(output_path.joinpath('q_assist_neuro1_'+str(k)+'_tron.csv'), err_final_neuro1, delimiter=',')
+                        np.savetxt(output_path.joinpath('q_assist_neuro10_'+str(k)+'_tron.csv'), err_final_neuro10, delimiter=',')
+                        # np.savetxt(output_path.joinpath('q_assist_neuro1_'+str(k)+'_tron.csv'), err_final_neuro1/samples, delimiter=',')
+                        # np.savetxt(output_path.joinpath('q_assist_neuro10_'+str(k)+'_tron.csv'), err_final_neuro10/samples, delimiter=',')
 
                         k = k + 1
 

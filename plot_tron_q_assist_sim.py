@@ -80,8 +80,8 @@ plt.ylim(ylims[0])
 
 # plt.title("Neurotron (q=1)", fontsize=fontsize)
 
-plt.xlabel('Iteration', fontsize=fontsize)
-plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+# plt.xlabel('Iteration', fontsize=fontsize)
+# plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
 plt.xticks(ticks=xticks, labels=xlabels, fontsize=fontsize)
 
@@ -117,8 +117,8 @@ plt.ylim(ylims[1])
 
 # plt.title("Neurotron (q=10)", fontsize=fontsize)
 
-plt.xlabel('Iteration', fontsize=fontsize)
-plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+# plt.xlabel('Iteration', fontsize=fontsize)
+# plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
 plt.xticks(ticks=xticks, labels=xlabels, fontsize=fontsize)
 

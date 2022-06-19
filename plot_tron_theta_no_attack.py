@@ -61,8 +61,7 @@ for i in range(2):
 
 axes[0, 0].set_title(r'Normal data ($\sigma=1$)', fontsize=fontsize)
 
-axes[0, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
-axes[1, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+# axes[0, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
 axes[0, 0].set_ylim(ylims)
 
@@ -80,7 +79,7 @@ for i in range(2):
 
 axes[1, 0].set_title(r'Normal data ($\sigma=3$)', fontsize=fontsize)
 
-axes[1, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+# axes[1, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
 axes[1, 0].set_xticks(xticks)
 axes[1, 0].set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
