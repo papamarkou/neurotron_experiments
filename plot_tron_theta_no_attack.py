@@ -26,9 +26,15 @@ fontsize = 13
 
 transparent = False
 
-# %% Set y axis limits and ticks
+# %% Set axis limits and ticks
+
+xticks = np.linspace(0, 40000, num=9)
+xticklabels = [str(round(i)) for i in xticks]
 
 ylims = [-16.2, 2.2]
+
+yticks = [-16, -14, -12, -10, -8, -6, -4, -2, 0, 2]
+yticklabels = ['1e-16', '1e-14', '1e-12', '1e-10', '1e-8', '1e-6', '1e-4', '1e-2', '1e-0', '1e+2']
 
 # %%
 
@@ -39,6 +45,11 @@ fig, axes = plt.subplots(nrows=2, ncols=2, sharex=True, sharey=True, figsize=(16
 plt.subplots_adjust(hspace=0.15, wspace=0.03)
 
 xrange = range(1, tron_error_loaded[0].shape[0]+1)
+
+labels = [
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][0]),
+    r'$\theta_\ast$ = {}'.format(sim01_setup['boundlist'][1])
+]
 
 for i in range(2):
     axes[0, 0].plot(
@@ -53,25 +64,32 @@ axes[0, 0].set_title(r'Normal data ($\sigma=1$)', fontsize=fontsize)
 axes[0, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 axes[1, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
-axes[0, 0].set_ylim([-16.2, 2.2])
+axes[0, 0].set_ylim(ylims)
 
-axes[0, 0].set_yticks([-16, -14, -12, -10, -8, -6, -4, -2, 0, 2])
+axes[0, 0].set_yticks(yticks)
 
-axes[0, 0].set_yticklabels(
-    ['1e-16', '1e-14', '1e-12', '1e-10', '1e-8', '1e-6', '1e-4', '1e-2', '1e-0', '1e+2'],
-    rotation=0,
-    fontsize=fontsize
-)
+axes[0, 0].set_yticklabels(yticklabels, rotation=0, fontsize=fontsize)
 
 for i in range(2):
     axes[1, 0].plot(
         xrange,
         np.log10(tron_error_loaded[1][:, i]),
-        linewidth=2. # ,
-        # label=labels[0]
+        linewidth=2.,
+        label=labels[0]
     )
 
 axes[1, 0].set_title(r'Normal data ($\sigma=3$)', fontsize=fontsize)
+
+axes[1, 0].set_ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
+
+axes[1, 0].set_xticks(xticks)
+axes[1, 0].set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
+
+axes[1, 0].set_ylim(ylims)
+
+axes[1, 0].set_yticks(yticks)
+
+axes[1, 0].set_yticklabels(yticklabels, rotation=0, fontsize=fontsize)
 
 for i in range(2):
     axes[0, 1].plot(
@@ -92,6 +110,9 @@ for i in range(2):
     )
 
 axes[1, 1].set_title(r't-distributed data ($df=4$)', fontsize=fontsize)
+
+axes[1, 1].set_xticks(xticks)
+axes[1, 1].set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
 
 # %%
 

@@ -137,6 +137,12 @@ for i in range(4):
 
     axes[i].legend(loc='upper right', ncol=2, fontsize=fontsize, frameon=False)
 
+xticks = np.linspace(0, 40000, num=9)
+xticklabels = [str(round(i)) for i in xticks]
+
+axes[3].set_xticks(xticks)
+axes[3].set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
+
 if save:
     plt.savefig(
         output_path.joinpath('all_sims_tron_merged_theta_vals.png'),

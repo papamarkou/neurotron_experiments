@@ -101,8 +101,8 @@ for i in range(len(theta_vals)):
 xticks = np.linspace(0, 40000, num=9)
 xticklabels = [str(round(i)) for i in xticks]
 
-axes[3].set_xticks(xticks)
-axes[3].set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
+axes[4].set_xticks(xticks)
+axes[4].set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
 
 if save:
     plt.savefig(

@@ -114,6 +114,12 @@ plt.ylim(ylims[1])
 plt.xlabel('Iteration', fontsize=fontsize)
 plt.ylabel(r'Parameter error ($\log_{10}$ scale)', fontsize=fontsize)
 
+xticks = np.linspace(0, 40000, num=9)
+xticklabels = [str(round(i)) for i in xticks]
+
+plt.set_xticks(xticks)
+plt.set_xticklabels(xticklabels, rotation=0, fontsize=fontsize)
+
 plt.yticks(ticks=yticks[1], labels=ylabels[1], fontsize=fontsize)
 
 plt.legend(frameon=False, fontsize=fontsize, handletextpad=0.5, ncol=1)
