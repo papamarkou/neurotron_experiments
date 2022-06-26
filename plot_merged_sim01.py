@@ -66,7 +66,7 @@ save = True
 
 xrange = range(1, tron_error_loaded.shape[0]+1)
 
-labels = ['Neurotron', 'SGD']
+labels = ['Neuro-Tron', 'SGD']
 
 fig, axes = plt.subplots(nrows=len(theta_vals), ncols=1, sharex=True, figsize=(8, 18))
 
