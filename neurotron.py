@@ -11,7 +11,7 @@ class NeuroTron:
             assert(len(w_star) == filter)
 
         self.w_true = w_star.copy() if (w_star is not None) else w_star
-        self.dim = d
+        self.dim = d # Corresponds to n in the paper (input dimension)
         self.step_tron = eta_tron
         self.step_sgd = eta_sgd
         self.minibatch = b
