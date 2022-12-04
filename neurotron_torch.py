@@ -12,11 +12,12 @@ from torch.utils.data import DataLoader, Dataset #, TensorDataset
 
 # %%
 class NeuroTron(nn.Module):
-    def __init__(self, n, r, h, beta, theta, activation=nn.functional.relu, dtype=torch.float32):
-        # n: number of input features
-        # r: number of parameters
-        # h: hidden layer width
+    # n: number of input features
+    # r: number of parameters
+    # h: hidden layer width
 
+    def __init__(self, n, r, h, beta, theta, activation=nn.functional.relu, dtype=torch.float32):
+    
         super().__init__()
 
         self.w = nn.Parameter(torch.empty(r, dtype=dtype), requires_grad=False)
@@ -80,7 +81,7 @@ class NeuroTron(nn.Module):
         return output, y_oracle
 
     def gradient(self, x, output, y_oracle):
-        return torch.matmul(self.M, torch.matmul(output - y_oracle, x) / x.shape[1])
+        return torch.matmul(self.M, torch.matmul(output - y_oracle, x) / x.shape[0])
 
     def update_parameters(self, x, output, y_oracle, stepsize):
         self.w += stepsize * self.gradient(x, output, y_oracle)
@@ -100,9 +101,6 @@ class NeuroTron(nn.Module):
                 error[epoch, batch_idx]  = self.weight_error()
 
         return error
-
-# %%
-neurotron = NeuroTron(n=8, r=20, h=10, beta=0.5, theta=1., dtype=torch.float64)
 
 # %%
 california_housing = fetch_california_housing(as_frame=True)
@@ -152,12 +150,36 @@ train_dataset = XYDataset(torch.from_numpy(x_train), torch.from_numpy(y_train))
 train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
 
 # %%
+neurotron = NeuroTron(n=8, r=6, h=10, beta=0.5, theta=1., dtype=torch.float64)
+
+# %%
 error = neurotron.train(train_loader, 0.0001, 2)
 
 # %%
 plt.plot(torch.flatten(error))
 
 # %%
+x, y = next(iter(train_loader))
 
+# %%
+x.shape, x.shape[0], x.shape[1], y.shape
+
+# %%
+neurotron.w.shape, neurotron.A.shape, neurotron.M.shape
+
+# %%
+output, y_oracle = neurotron.forward(x)
+
+# %%
+output.shape, y_oracle.shape
+
+# %%
+neurotron.w.shape, neurotron.A[0, :, :].shape, x.t().shape, x.shape
+
+# %%
+torch.matmul(neurotron.w, neurotron.A[0, :, :]).shape
+
+# %%
+torch.matmul(torch.matmul(neurotron.w, neurotron.A[0, :, :]), x.t()).shape
 
 
