@@ -75,16 +75,11 @@ class NeuroTron(nn.Module):
     def update_parameters(self, x, output, y, stepsize):
         self.w.data.add_(stepsize * self.gradient(x, output, y))
 
-<<<<<<< HEAD
     def train(self, train_loader, stepsize, loss, log_step=200, test_loader=None):
-=======
-    def train(self, train_loader, stepsize, loss, test_loader=None, log_step=200):
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
         train_losses, test_losses = [], []
 
         for train_batch_idx, (train_data, train_targets) in enumerate(train_loader):
             train_output = self.forward(train_data)
-<<<<<<< HEAD
 
             self.update_parameters(train_data, train_output, train_targets, stepsize)
 
@@ -96,26 +91,6 @@ class NeuroTron(nn.Module):
                     test_output = self.forward(test_data)
                     test_losses.append(loss(test_targets, self.forward(test_data)))
 
-=======
-
-            self.update_parameters(train_data, train_output, train_targets, stepsize)
-
-            if (train_batch_idx % log_step == 0):
-                train_losses.append(loss(train_targets, train_output))
-
-                if (test_loader is not None):
-                    test_loss = 0.
-
-                    for test_batch_idx, (test_data, test_targets) in enumerate(test_loader):
-                        test_output = self.forward(test_data)
-
-                        test_loss += loss(test_targets, test_output)
-
-                    test_loss /= len(test_loader)
-
-                    test_losses.append(test_loss)
-
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
         if (test_loader is not None):
             test_losses = torch.stack(test_losses)
 
@@ -165,30 +140,20 @@ normal_data = sampling_distribution.sample([num_samples])
 
 normal_targets = torch.stack([sampling_distribution.log_prob(normal_data[i, :]).exp() for i in range(num_samples)], dim=0)
 
-<<<<<<< HEAD
 # normal_targets = normal_data.norm(p=2, dim=1)
 
 print(normal_data.shape, normal_targets.shape)
-=======
-# print(normal_data.shape, normal_targets.shape)
-
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
 
 # %%
 x_train, x_test, y_train, y_test = train_test_split(normal_data, normal_targets, test_size=0.2)
 
-<<<<<<< HEAD
 print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
-=======
-# print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
 
 # %%
 beta = 0.5
 theta = 0.125
 
 train_dataset = PoisonedDataset(x_train, y_train, beta=beta, theta=theta)
-<<<<<<< HEAD
 test_dataset = PoisonedDataset(x_test, y_test, beta=beta, theta=theta)
 
 # %%
@@ -197,13 +162,6 @@ test_batch_size = 3 * train_batch_size
 
 train_loader = DataLoader(train_dataset, batch_size=train_batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=test_batch_size, shuffle=True)
-=======
-# test_dataset = PoisonedDataset(x_test, y_test, beta=beta, theta=theta)
-
-# %%
-train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
-# test_loader = DataLoader(test_dataset, batch_size=len(test_dataset), shuffle=False)
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
 
 # %% [markdown]
 # ## Instantiate NeuroTron class
@@ -218,17 +176,13 @@ neurotron = NeuroTron(n=num_features, r=25, h=10, dtype=torch.float32)
 num_epochs = 2
 
 train_losses = []
-<<<<<<< HEAD
 test_losses = []
-=======
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
 
 verbose_msg = 'Train epoch {:' + str(len(str(num_epochs))) + '} of {:' + str(len(str(num_epochs))) +'}'
 
 for epoch in range(num_epochs):
     print(verbose_msg.format(epoch+1, num_epochs))
 
-<<<<<<< HEAD
     train_losses_in_epoch, test_losses_in_epoch = neurotron.train(
         train_loader, stepsize=0.0001, loss=nn.MSELoss(reduction='mean'), log_step=10, test_loader=test_loader
     )
@@ -238,27 +192,14 @@ for epoch in range(num_epochs):
 
 train_losses = torch.stack(train_losses, dim=0)
 test_losses = torch.stack(test_losses, dim=0)
-=======
-    train_losses_in_epoch, _ = neurotron.train(
-        train_loader, stepsize=0.0001, loss=nn.MSELoss(reduction='mean'), test_loader=None, log_step=10
-    )
-
-    train_losses.append(train_losses_in_epoch)
-
-train_losses = torch.stack(train_losses, dim=0)
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
 
 # %% [markdown]
 # ## Plotting training and test loss
 
 # %%
-<<<<<<< HEAD
 plt.plot(torch.flatten(train_losses), label='Train loss')
 plt.plot(torch.flatten(test_losses), label='Test loss')
 plt.yscale('log')
-=======
-plt.plot(torch.flatten(train_losses), label="Train loss")
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
 plt.legend(loc='upper right')
 
 # %% [markdown]
@@ -307,11 +248,7 @@ neurotron = NeuroTron(n=8, r=6, h=10, dtype=torch.float32)
 # ## Training
 
 # %%
-<<<<<<< HEAD
 num_epochs = 10
-=======
-num_epochs = 2
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
 
 train_losses = []
 
@@ -321,11 +258,7 @@ for epoch in range(num_epochs):
     print(verbose_msg.format(epoch+1, num_epochs))
 
     train_losses_in_epoch, _ = neurotron.train(
-<<<<<<< HEAD
         train_loader, stepsize=0.00001, loss=nn.MSELoss(reduction='mean'), log_step=10, test_loader=None
-=======
-        train_loader, stepsize=0.00001, loss=nn.MSELoss(reduction='mean'), test_loader=None, log_step=10
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
     )
 
     train_losses.append(train_losses_in_epoch)
@@ -337,10 +270,7 @@ train_losses = torch.stack(train_losses, dim=0)
 
 # %%
 plt.plot(torch.flatten(train_losses), label="Train loss")
-<<<<<<< HEAD
 plt.yscale('log')
-=======
->>>>>>> e6db1456e88e30d43bdeab48d2df5e637feafe47
 plt.legend(loc='upper right')
 
 # %% [markdown]
@@ -369,5 +299,8 @@ torch.matmul(neurotron.w, neurotron.A[0, :, :]).shape
 
 # %%
 torch.matmul(torch.matmul(neurotron.w, neurotron.A[0, :, :]), x.t()).shape
+
+# %%
+
 
 
